@@ -1,9 +1,22 @@
+    
     public class Producto {
+
+    
+        //------------------------------------------------------------------------------------------
+        //                                         ATRIBUTOS
+        //------------------------------------------------------------------------------------------
+
 
         private int identificador;
         private String nombre;
         private String descripcion;
         private int precio;
+
+                
+        //------------------------------------------------------------------------------------------
+        //                                         CONSTRUCTOR
+        //------------------------------------------------------------------------------------------
+
         
         public Producto(int identificador, String nombre, String descripcion, int precio) {
             this.identificador = identificador;
@@ -11,6 +24,10 @@
             this.descripcion = descripcion;
             this.precio = precio;
         }
+
+        //------------------------------------------------------------------------------------------
+        //                                         GETTERS Y SETTERS
+        //------------------------------------------------------------------------------------------
 
         public int getIdentificador() {
             return identificador;
@@ -44,13 +61,23 @@
             this.precio = precio;
         }
 
+        
+    
+        //------------------------------------------------------------------------------------------
+        //                                         MÉTODOS
+        //------------------------------------------------------------------------------------------
+
+
         public void imprimir () {
 
-        System.out.println("Producto");
-        System.out.println("Identificador:");
-        System.out.println("Nombre del producto:");
-        System.out.println("Descripcion: ");
-        System.out.println("Precio: ");
+      System.out.println("\n----------------------- PRODUCTO -----------------------\n ");
+
+        System.out.println("Identificador:" + identificador);
+        System.out.println("Nombre del producto:" + nombre);
+        System.out.println("Descripcion: " + descripcion);
+        System.out.println("Precio: " + precio);
+
+      System.out.println("\n--------------------------------------------------------\n ");
         
     
     }}

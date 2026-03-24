@@ -2,16 +2,31 @@
     
     public class LineaPedido {
 
+          
+        //------------------------------------------------------------------------------------------
+        //                                         ATRIBUTOS
+        //------------------------------------------------------------------------------------------
+
+
         private int identificador;
         private int cantidad;
         public Producto producto;
 
+           
+        //------------------------------------------------------------------------------------------
+        //                                         CONSTRUCTOR
+        //------------------------------------------------------------------------------------------
 
         public LineaPedido(int identificador, int cantidad, Producto producto) {
             this.identificador = identificador;
             this.cantidad = cantidad;
             this.producto = producto;
         }
+
+        
+        //------------------------------------------------------------------------------------------
+        //                                         GETTERS Y SETTERS
+        //------------------------------------------------------------------------------------------
 
 
         public int getIdentificador() {
@@ -23,8 +38,8 @@
             return cantidad;
         }
 
-        public void getProducto() {
-
+        public Producto getProducto() {
+            return producto;
         }
 
         public void setIdentificador(int identificador) {
@@ -36,14 +51,20 @@
             this.cantidad = cantidad;
         }
 
-        private Producto setProducto(Producto producto) {
-            return producto;
+        public void setProducto(Producto producto) {
+           this.producto = producto;
 
         }
    
         public void imprimir() {
+            producto.imprimir();
+        }
 
-            System.out.println("");
+        public int calcularSubtotalLineaPedido() { 
+
+            int subtotal = cantidad*producto.getPrecio();
+
+            return subtotal;
         }
     
     }
