@@ -1,0 +1,35 @@
+package inventariogestion;
+
+public class Administrador {
+
+    private String nombre;
+    private int id;
+
+    public Administrador(String nombre, int id) {
+        this.nombre = nombre;
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void imprimir() {
+
+        System.out.println("Nombre del administrador: " + nombre);
+        System.out.println("ID del administrador: " + id);
+    }
+
+}
