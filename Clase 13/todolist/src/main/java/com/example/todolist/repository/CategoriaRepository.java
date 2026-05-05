@@ -1,6 +1,10 @@
 package com.example.todolist.repository;
 
-public interface CategoriaRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.todolist.model.Categoria;
+
+public interface CategoriaRepository extends JpaRepository<Categoria,Long>{
 
     
 }

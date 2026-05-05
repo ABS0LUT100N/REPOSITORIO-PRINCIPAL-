@@ -20,7 +20,7 @@ public class Categoria {
     @OneToMany(mappedBy = "categoria")
     private List<Tarea> tareas;
 
-    //constructores
+   //constructores
     public Categoria() {
     }
 
@@ -31,8 +31,8 @@ public class Categoria {
     public Categoria(int id) {
         this.id = id;
     }
-
-    //Getters y Setters
+ 
+       //getters and setters
     public int getId() {
         return id;
     }
@@ -40,4 +40,21 @@ public class Categoria {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public List<Tarea> getTareas() {
+        return tareas;
+    }
+
+    public void setTareas(List<Tarea> tareas) {
+        this.tareas = tareas;
+    }    
+    
 }
