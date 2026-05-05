@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementos HTML</title>
+    <link rel="icon" href="img/SONIC.png" type="SONIC/png">
+</head>
+
+<body>
+    <h1 class="titulo"> Elementos de HTML</h1>
+    <ul>
+        <li><a href="#textos">Marcado de textos</a></li>
+        <li><a href="#Listas">listas</a></li>
+        <li><a href="#Tablas">Tablas</a></li>
+        <li><a href="#Imagenes">Imagenes</a></li>
+        <li><a href="#Botones">Botones</a></li>
+        <li><a href="#Formularios">Formularios</a></li>
+    </ul>
+    <h2 id="textos">Elementos de marcado de textos</h2>
+    <p>parrafo</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non expedita earum aspernatur quos, adipisci, soluta,
+        sint velit accusamus voluptas sunt est labore obcaecati. Dolores, quam? Vitae architecto recusandae adipisci
+        modi.</p>
+    <h3>Titulo de tercer nivel</h3>
+    <h6>titulo de sexto nivel</h6>
+    <p>
+        <b>Negrita</b>
+        <br>
+        <i>Itálica</i>
+        <u>Subrayado</u>
+        <mark>Resaltado</mark>
+        <span>Contenedor</span>
+
+    </p>
+
+    <hr>
+
+    <h2 id="Listas">Listas</h2>
+    <h3>Listas ordenadas</h3>
+    <ol type="A">
+        <li>Elemento 1</li>
+        <li>Elemento 2</li>
+        <li>Elemento 3</li>
+        <li>Elemento 4</li>
+    </ol>
+
+    <h3>Listas desordenadas</h3>
+    <ul>
+        <li>Perro🐕</li>
+        <li>Gato 🐈</li>
+        <li>Sonic 🦔</li>
+        <li>Panda 🐼</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="Tablas">Tablas</h2>
+    <style>
+        table,
+        tr,
+        th,
+        td {
+            border: 1px solid;
+            border-collapse: collapse;
+        }
+    </style>
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Edad</th>
+        </tr>
+
+        <tr>
+            <td>Sonic</td>
+            <td>Hedgehog</td>
+            <td>15</td>
+        </tr>
+
+        <tr>
+            <td>Miles</td>
+            <td>Prower</td>
+            <td>8</td>
+        </tr>
+
+        <tr>
+            <td>Knuckles</td>
+            <td>Echidna</td>
+            <td>17</td>
+        </tr>
+
+        <tr>
+            <td>Amy</td>
+            <td>Rose</td>
+            <td>12</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <h2 id="Imagenes">imagenes</h2>
+    <img src="img/GOJOO.jpg" alt="GOJOO">
+
+    <hr>
+
+    <h2 id="Botones">Botones</h2>
+    <button onclick="alerta()">Alerta</button>
+    <script>
+        function alerta(){alert("advertencia")}
+    </script>
+
+    <hr>
+
+    <h2 id="Formularios">Formularios</h2>
+    <form action="Ruta donde se procesa" method="post" onsubmit="return confirmarEnvio()">
+    <label for="Nombre">Nombre:</label>
+    <input type="text" id="Nombre" name="Nombre" required placeholder="Digite su nombre.">
+
+    <label for="Corrreo">Correo:</label>
+    <input type="email" id="Correo" name="Correo" required placeholder="correo@ejemplo.com">
+
+    <label for="Curso">Curso:</label>
+    <select name="Curso" id="Curso" required>
+
+        <option value="" disabled>Seleccione una opción.</option>
+        <option value="Java">Java</option>
+        <option value="HTML">HTML</option>
+        <option value="CSS">CSS</option>
+        <option value="Sonic">Sonic the Hedgehog</option>
+    </select>
+
+    <label>Modalidad:</label>
+    <input type="radio" name="Modalidad" value="Virtual" required> Virtual.
+    <input type="radio" name="Modalidad" value="Presencial"> Presencial.
+
+    <button type="submit">Enviar</button>
+    </form>
+    <script>
+    function confirmarEnvio(){
+        return confirm("¿Estas seguro de enviar el formulario")
+    }</script>
+</body>
+
+</html>
