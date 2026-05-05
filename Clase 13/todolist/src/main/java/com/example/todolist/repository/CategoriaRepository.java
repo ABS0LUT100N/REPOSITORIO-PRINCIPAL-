@@ -1,4 +1,4 @@
-public package com.example.todolist.repository;
+package com.example.todolist.repository;
 
 public interface CategoriaRepository {
 

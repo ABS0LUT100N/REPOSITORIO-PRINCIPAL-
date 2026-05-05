@@ -1,9 +1,12 @@
 package com.example.todolist.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Categoria {
@@ -14,12 +17,27 @@ public class Categoria {
     private String nombre;
 
     //relacion con tareas
-
-    @OneToMany(mappedBy = "Categoria")
+    @OneToMany(mappedBy = "categoria")
     private List<Tarea> tareas;
-    
 
     //constructores
+    public Categoria() {
+    }
 
+    public Categoria(String nombre) {
+        this.nombre = nombre;
+    }
 
+    public Categoria(int id) {
+        this.id = id;
+    }
+
+    //Getters y Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
