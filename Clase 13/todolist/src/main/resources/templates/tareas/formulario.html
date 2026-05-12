@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tarea</title>
+</head>
+<body>
+
+    <div th:replace="layouts/plantilla :: header"></div>
+
+    <main>
+
+       
+        <h2 th:text="${tarea.id} != null ? 'Editar Tarea' : 'Nueva Tarea'"></h2>
+
+        <form th:action="@{/tareas}" th:object="${tarea}" method="post">
+
+          
+            <input type="hidden" th:field="*{id}">
+
+           
+            <div>
+                <label>Descripción:</label>
+                <input type="text" th:field="*{descripcion}" required>
+            </div>
+
+           
+            {% comment %} <div>
+                <label>Categoría:</label>
+                <select th:field="*{categoria.id}" required>
+                    <option th:each="c : ${categorias}"
+                            th:value="${c.id}"
+                            th:text="${c.nombre}">
+                    </option>
+                </select>
+            </div> {% endcomment %}
+
+           
+            <div>
+                <label>
+                    <input type="checkbox" th:field="*{completada}">
+                    Completada
+                </label>
+            </div>
+
+           
+            <div>
+                <button type="submit">Guardar</button>
+            </div>
+
+        </form>
+
+      
+        <a th:href="@{/tareas}">Volver a la lista</a>
+
+    </main>
+
+    <div th:replace="layouts/plantilla :: footer"></div>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Tareas</title>
+</head>
+<body>
+
+    <div th:replace="layouts/plantilla :: header"></div>
+
+    <main>
+
+        <h2>Lista de Tareas</h2>
+
+        
+        <a th:href="@{/tareas/nueva}">Nueva Tarea</a>
+
+        
+
+
+
+       
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>Categoría</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="t : ${tareas}">
+                    <td th:text="${t.id}"></td>
+                    <td th:text="${t.descripcion}"></td>
+                    <td th:text="${t.categoria.nombre}"></td>
+                    <td th:text="${t.completada ? 'Completada' : 'Pendiente'}"></td>
+                    <td>
+                        <a th:href="@{'/tareas/editar/' + ${t.id}}">Editar</a> |
+                        <a th:href="@{'/tareas/eliminar/' + ${t.id}}"
+                           onclick="return confirm('¿Eliminar esta tarea?')">
+                           Eliminar
+                        </a> |
+                        <a th:href="@{'/tareas/completar/' + ${t.id}}">
+                            Completar
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </main>
+
+    <div th:replace="layouts/plantilla :: footer"></div>
+
+</body>
+</html>
