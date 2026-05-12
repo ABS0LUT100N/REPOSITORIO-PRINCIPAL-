@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tarea</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sonicBlue: '#005BFF',
+                        sonicDark: '#000000',
+                        sonicLight: '#00A2FF',
+                        sonicYellow: '#FFE600',
+                        sonicRed: '#FF1E1E'
+                    },
+
+                    fontFamily: {
+                        sonic: ['Arial Black', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body{
+            overflow-x:hidden;
+            position:relative;
+        }
+
+        /* Fondo Sonic Generations */
+        body::before{
+            content:"";
+            position:fixed;
+            inset:0;
+            background:
+                radial-gradient(circle at top left, #005BFF 0 28%, transparent 29%),
+                radial-gradient(circle at bottom right, #FF1E1E 0 30%, transparent 31%),
+                linear-gradient(90deg,#005BFF 0 50%, #FF1E1E 50% 100%);
+            z-index:-4;
+        }
+
+        /* Decoraciones */
+        body::after{
+            content:"";
+            position:fixed;
+            inset:0;
+            background:
+                repeating-linear-gradient(
+                    -45deg,
+                    #FFE600 0 10px,
+                    #000 10px 20px
+                );
+            clip-path: polygon(
+                0 0,
+                12% 0,
+                8% 8%,
+                20% 0,
+                100% 0,
+                100% 10%,
+                92% 0,
+                100% 100%,
+                85% 100%,
+                100% 85%,
+                0 100%,
+                0 85%,
+                10% 100%,
+                0 10%
+            );
+            opacity:.95;
+            z-index:-3;
+        }
+
+        /* Overlay */
+        .overlay{
+            position:fixed;
+            inset:0;
+            background:
+                radial-gradient(circle at center, transparent 0%, rgba(0,0,0,.25) 60%, rgba(0,0,0,.65) 100%);
+            z-index:-2;
+        }
+
+        /* Card */
+        .generations-card{
+            position:relative;
+            background:#000;
+            border:6px solid white;
+            border-radius:2rem;
+            overflow:hidden;
+            box-shadow:
+                0 0 0 6px #FFE600,
+                0 0 45px rgba(0,0,0,.85);
+        }
+
+        .generations-card::before{
+            content:"";
+            position:absolute;
+            top:-45px;
+            left:-45px;
+            width:150px;
+            height:150px;
+            background:#005BFF;
+            border-radius:999px;
+            border:10px solid #FFE600;
+        }
+
+        .generations-card::after{
+            content:"";
+            position:absolute;
+            bottom:-60px;
+            right:-60px;
+            width:180px;
+            height:180px;
+            background:#FF1E1E;
+            border-radius:999px;
+            border:12px solid #FFE600;
+        }
+
+        /* Zigzag */
+        .zigzag{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:18px;
+            background:
+                linear-gradient(-45deg, transparent 75%, #FFE600 75%) 0 0/18px 18px,
+                linear-gradient(45deg, transparent 75%, #FFE600 75%) 0 0/18px 18px;
+        }
+
+        /* Título */
+        .sonic-title{
+            font-family:'Arial Black', sans-serif;
+            text-transform:uppercase;
+            text-shadow:
+                4px 4px 0 black,
+                0 0 12px rgba(255,255,255,.35);
+            letter-spacing:2px;
+        }
+
+        /* Labels */
+        .sonic-label{
+            text-transform:uppercase;
+            font-weight:900;
+            letter-spacing:1px;
+            color:#FFE600;
+        }
+
+        /* Inputs */
+        .sonic-input{
+            background:white !important;
+            color:black !important;
+            border:4px solid white !important;
+            border-radius:999px !important;
+            font-weight:bold;
+            box-shadow:
+                0 6px 0 rgba(0,0,0,.35);
+        }
+
+        .sonic-input:focus{
+            outline:none !important;
+            border-color:#FFE600 !important;
+            box-shadow:
+                0 0 0 4px #FFE600,
+                0 6px 0 rgba(0,0,0,.35);
+        }
+
+        /* Select */
+        .sonic-select{
+            background:white !important;
+            color:black !important;
+            border:4px solid white !important;
+            border-radius:999px !important;
+            font-weight:bold;
+            box-shadow:
+                0 6px 0 rgba(0,0,0,.35);
+        }
+
+        .sonic-select:focus{
+            outline:none !important;
+            border-color:#FFE600 !important;
+            box-shadow:
+                0 0 0 4px #FFE600,
+                0 6px 0 rgba(0,0,0,.35);
+        }
+
+        /* Checkbox */
+        .checkbox-panel{
+            background:rgba(255,255,255,.08);
+            border:3px solid white;
+            border-radius:1.5rem;
+        }
+
+        /* Botón */
+        .sonic-button{
+            background:#FFE600 !important;
+            color:black !important;
+            border:4px solid black;
+            border-radius:999px;
+            font-weight:900;
+            letter-spacing:1px;
+            box-shadow:
+                0 8px 0 #b89d00;
+        }
+
+        .sonic-button:hover{
+            transform:translateY(3px) scale(1.02);
+            box-shadow:
+                0 4px 0 #b89d00;
+        }
+
+        /* Link */
+        .back-link{
+            font-family:'Arial Black', sans-serif;
+            letter-spacing:1px;
+        }
+
+        .back-link:hover{
+            color:#FFE600;
+            text-shadow:0 0 10px rgba(255,230,0,.7);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen font-sans text-white">
+
+    <div class="overlay"></div>
+
+    <div th:replace="layouts/plantilla :: header"></div>
+
+    <main class="flex items-center justify-center px-6 py-12">
+
+        <div class="generations-card p-10 w-full max-w-2xl">
+
+            <div class="zigzag"></div>
+
+            <h2 class="sonic-title text-5xl text-white mb-10 text-center relative z-10"
+                th:text="${tarea.id} != null ? 'Editar Tarea' : 'Nueva Tarea'">
+            </h2>
+
+            <form th:action="@{/tareas}"
+                  th:object="${tarea}"
+                  method="post"
+                  class="space-y-8 relative z-10">
+
+                <!-- ID oculto -->
+                <input type="hidden" th:field="*{id}">
+
+                <!-- Descripción -->
+                <div class="flex flex-col gap-3">
+
+                    <label class="sonic-label text-xl">
+                        Descripción
+                    </label>
+
+                    <input type="text"
+                           th:field="*{descripcion}"
+                           required
+                           placeholder="Escribe una tarea..."
+                           class="sonic-input w-full px-6 py-4">
+                </div>
+
+                <!-- Categoría -->
+                <div class="flex flex-col gap-3">
+
+                    <label class="sonic-label text-xl">
+                        Categoría
+                    </label>
+
+                    <select th:field="*{categoria.id}"
+                            required
+                            class="sonic-select w-full px-6 py-4">
+
+                        <option th:each="c : ${categorias}"
+                                th:value="${c.id}"
+                                th:text="${c.nombre}">
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- Checkbox -->
+                <div class="checkbox-panel flex items-center gap-4 p-5">
+
+                    <input type="checkbox"
+                           th:field="*{completada}"
+                           class="w-6 h-6 accent-yellow-400">
+
+                    <label class="font-black text-xl uppercase tracking-wide">
+                        Completada
+                    </label>
+
+                </div>
+
+                <!-- Botón -->
+                <div class="pt-2">
+
+                    <button type="submit"
+                            class="sonic-button w-full py-4 text-2xl transition duration-200">
+
+                        GUARDAR
+
+                    </button>
+
+                </div>
+
+            </form>
+
+            <!-- Volver -->
+            <div class="mt-10 text-center relative z-10">
+
+                <a th:href="@{/tareas}"
+                   class="back-link inline-block text-xl text-white transition duration-300">
+
+                    ← VOLVER A LA LISTA
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <div th:replace="layouts/plantilla :: footer"></div>
+
+</body>
+</html>

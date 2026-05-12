@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+
+                    colors: {
+                        sonicBlue: '#0057FF',
+                        sonicDark: '#002D72',
+                        sonicLight: '#3FA9FF',
+                        sonicYellow: '#FFD500',
+                        sonicRed: '#FF3131',
+                        sonicBlack: '#111111'
+                    },
+
+                    boxShadow: {
+                        sonic: '0 0 20px rgba(0,87,255,0.8)',
+                        yellowGlow: '0 0 25px rgba(255,213,0,0.9)',
+                        arcade: '6px 6px 0px #000'
+                    },
+
+                    animation: {
+                        float: 'float 3s ease-in-out infinite',
+                        shine: 'shine 3s linear infinite',
+                        spinSlow: 'spin 10s linear infinite'
+                    },
+
+                    keyframes: {
+
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0px)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-8px)'
+                            }
+                        },
+
+                        shine: {
+                            '0%': {
+                                backgroundPosition: '-200% center'
+                            },
+                            '100%': {
+                                backgroundPosition: '200% center'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-yellow-300 font-sans overflow-x-hidden relative">
+
+    <!-- Fondo arcade -->
+    <div class="fixed inset-0 -z-10 overflow-hidden">
+
+        <!-- Mitad azul -->
+        <div class="absolute top-0 left-0 w-1/2 h-full bg-sonicBlue"></div>
+
+        <!-- Mitad roja -->
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-sonicRed"></div>
+
+        <!-- Patrón -->
+        <div class="absolute inset-0 opacity-10
+                    bg-[radial-gradient(circle,_white_2px,_transparent_2px)]
+                    bg-[length:28px_28px]">
+        </div>
+
+        <!-- Círculos -->
+        <div class="absolute -top-20 -left-20 w-72 h-72 border-[20px] border-sonicYellow rounded-full animate-spinSlow opacity-70"></div>
+
+        <div class="absolute bottom-0 right-0 w-96 h-96 border-[25px] border-white rounded-full opacity-20"></div>
+
+        <!-- Líneas -->
+        <div class="absolute top-40 left-1/4 w-[500px] h-6 bg-black rotate-[-10deg]"></div>
+
+        <div class="absolute bottom-32 right-20 w-[350px] h-4 bg-yellow-200 rotate-[12deg]"></div>
+
+    </div>
+
+    <!-- HEADER -->
+    <header th:fragment="header"
+            class="relative overflow-hidden border-b-[10px] border-sonicYellow shadow-[0_8px_0_#000]">
+
+        <!-- Glow -->
+        <div class="absolute inset-0 opacity-20 
+                    bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.9),transparent)] 
+                    bg-[length:200%_100%] animate-shine">
+        </div>
+
+        <!-- Estrellas -->
+        <div class="absolute top-4 left-20 text-white text-3xl">✦</div>
+        <div class="absolute top-10 left-40 text-yellow-300 text-xl">★</div>
+        <div class="absolute bottom-3 right-24 text-white text-2xl">✦</div>
+
+        <div class="relative max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+
+            <!-- Logo -->
+            <div class="flex items-center gap-5">
+
+                <!-- Icono -->
+                <div class="w-16 h-16 bg-sonicYellow text-black rounded-full
+                            flex items-center justify-center
+                            text-4xl font-black
+                            border-[5px] border-white
+                            shadow-arcade
+                            animate-float">
+
+                    ✓
+
+                </div>
+
+                <!-- Texto -->
+                <div>
+
+                    <h1 class="text-5xl font-black uppercase tracking-widest
+                               text-white
+                               drop-shadow-[4px_4px_0px_black]">
+
+                        Todo List
+
+                    </h1>
+
+                    <p class="text-sm font-bold uppercase tracking-[0.4em]
+                              text-yellow-200 mt-1">
+
+                        Green Hill Tasks Zone
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Navegación -->
+            <nav class="flex gap-4">
+
+                <a th:href="@{/}"
+                   class="bg-black text-white px-5 py-2 rounded-full
+                          font-black uppercase tracking-wide
+                          border-4 border-white
+                          shadow-arcade
+                          hover:bg-sonicYellow
+                          hover:text-black
+                          hover:scale-110
+                          transition-all duration-200">
+
+                    Inicio
+
+                </a>
+
+                <a th:href="@{/tareas}"
+                   class="bg-black text-white px-5 py-2 rounded-full
+                          font-black uppercase tracking-wide
+                          border-4 border-white
+                          shadow-arcade
+                          hover:bg-sonicYellow
+                          hover:text-black
+                          hover:scale-110
+                          transition-all duration-200">
+
+                    Tareas
+
+                </a>
+
+                <a th:href="@{/categorias}"
+                   class="bg-black text-white px-5 py-2 rounded-full
+                          font-black uppercase tracking-wide
+                          border-4 border-white
+                          shadow-arcade
+                          hover:bg-sonicYellow
+                          hover:text-black
+                          hover:scale-110
+                          transition-all duration-200">
+
+                    Categorías
+
+                </a>
+
+            </nav>
+
+        </div>
+
+        <!-- Línea arcade -->
+        <div class="h-3 bg-[repeating-linear-gradient(45deg,#FFD500_0px,#FFD500_20px,#fff_20px,#fff_40px)]"></div>
+
+    </header>
+
+    <!-- FOOTER -->
+    <footer th:fragment="footer"
+            class="relative mt-16 bg-black border-t-[10px] border-sonicYellow overflow-hidden shadow-[0_-8px_0_#000]">
+
+        <!-- Patrón -->
+        <div class="absolute inset-0 opacity-10
+                    bg-[radial-gradient(circle,_white_2px,_transparent_2px)]
+                    bg-[length:24px_24px]">
+        </div>
+
+        <!-- Glow -->
+        <div class="absolute inset-0 bg-gradient-to-r from-sonicBlue/20 via-sonicYellow/10 to-sonicRed/20"></div>
+
+        <!-- Decoraciones -->
+        <div class="absolute top-2 left-10 text-yellow-300 text-xl">★</div>
+        <div class="absolute bottom-2 right-10 text-white text-2xl">✦</div>
+
+        <div class="relative text-center py-6">
+
+            <p class="text-yellow-300 font-black uppercase tracking-[0.35em]
+                      text-sm drop-shadow-[2px_2px_0px_black]">
+
+                Aplicación con Spring Boot
+
+            </p>
+
+            <p class="text-white/70 text-xs mt-2 tracking-widest uppercase">
+
+                Sonic Styled UI Experience
+
+            </p>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>

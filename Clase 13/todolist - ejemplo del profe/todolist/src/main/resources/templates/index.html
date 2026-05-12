@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sonicBlue: '#005BFF',
+                        sonicDark: '#000000',
+                        sonicLight: '#00A2FF',
+                        sonicYellow: '#FFE600',
+                        sonicRed: '#FF1E1E'
+                    },
+
+                    fontFamily: {
+                        sonic: ['Arial Black', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body{
+            overflow-x:hidden;
+            position:relative;
+        }
+
+        /* Fondo estilo Sonic Generations */
+        body::before{
+            content:"";
+            position:fixed;
+            inset:0;
+            background:
+                radial-gradient(circle at top left, #005BFF 0 28%, transparent 29%),
+                radial-gradient(circle at bottom right, #FF1E1E 0 30%, transparent 31%),
+                linear-gradient(90deg,#005BFF 0 50%, #FF1E1E 50% 100%);
+            z-index:-4;
+        }
+
+        /* Decoraciones */
+        body::after{
+            content:"";
+            position:fixed;
+            inset:0;
+            background:
+                repeating-linear-gradient(
+                    -45deg,
+                    #FFE600 0 10px,
+                    #000 10px 20px
+                );
+            clip-path: polygon(
+                0 0,
+                12% 0,
+                8% 8%,
+                20% 0,
+                100% 0,
+                100% 10%,
+                92% 0,
+                100% 100%,
+                85% 100%,
+                100% 85%,
+                0 100%,
+                0 85%,
+                10% 100%,
+                0 10%
+            );
+            opacity:.95;
+            z-index:-3;
+        }
+
+        /* Overlay */
+        .overlay{
+            position:fixed;
+            inset:0;
+            background:
+                radial-gradient(circle at center, transparent 0%, rgba(0,0,0,.25) 60%, rgba(0,0,0,.7) 100%);
+            z-index:-2;
+        }
+
+        /* Card principal */
+        .generations-card{
+            position:relative;
+            background:#000000;
+            border:6px solid white;
+            border-radius:2rem;
+            overflow:hidden;
+            box-shadow:
+                0 0 0 6px #FFE600,
+                0 0 45px rgba(0,0,0,.85);
+        }
+
+        .generations-card::before{
+            content:"";
+            position:absolute;
+            top:-45px;
+            left:-45px;
+            width:150px;
+            height:150px;
+            background:#005BFF;
+            border-radius:999px;
+            border:10px solid #FFE600;
+        }
+
+        .generations-card::after{
+            content:"";
+            position:absolute;
+            bottom:-60px;
+            right:-60px;
+            width:180px;
+            height:180px;
+            background:#FF1E1E;
+            border-radius:999px;
+            border:12px solid #FFE600;
+        }
+
+        /* Zigzag */
+        .zigzag{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:18px;
+            background:
+                linear-gradient(-45deg, transparent 75%, #FFE600 75%) 0 0/18px 18px,
+                linear-gradient(45deg, transparent 75%, #FFE600 75%) 0 0/18px 18px;
+        }
+
+        /* Título */
+        .sonic-title{
+            font-family:'Arial Black', sans-serif;
+            text-transform:uppercase;
+            text-shadow:
+                4px 4px 0 black,
+                0 0 12px rgba(255,255,255,.35);
+            letter-spacing:2px;
+        }
+
+        /* Texto */
+        .sonic-text{
+            letter-spacing:.5px;
+            line-height:1.7;
+        }
+
+        /* Botones */
+        .sonic-btn{
+            display:block;
+            width:100%;
+            border-radius:999px;
+            font-weight:900;
+            letter-spacing:1px;
+            border:4px solid black;
+            transition:.2s;
+            box-shadow:0 8px 0 rgba(0,0,0,.45);
+            text-transform:uppercase;
+        }
+
+        .sonic-btn:hover{
+            transform:translateY(3px) scale(1.03);
+            box-shadow:0 4px 0 rgba(0,0,0,.45);
+        }
+
+        /* Decoración círculos */
+        .ring{
+            position:absolute;
+            border:6px solid #FFE600;
+            border-radius:999px;
+            opacity:.9;
+        }
+
+        .ring1{
+            width:80px;
+            height:80px;
+            top:30px;
+            right:40px;
+        }
+
+        .ring2{
+            width:50px;
+            height:50px;
+            bottom:40px;
+            left:50px;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen text-white font-sans">
+
+    <div class="overlay"></div>
+
+    <div th:replace="layouts/plantilla :: header"></div>
+
+    <main class="flex flex-col items-center justify-center text-center px-6 py-16">
+
+        <div class="generations-card p-10 max-w-xl w-full">
+
+            <div class="zigzag"></div>
+
+            <!-- Decoraciones -->
+            <div class="ring ring1"></div>
+            <div class="ring ring2"></div>
+
+            <!-- Título -->
+            <h2 class="sonic-title text-5xl mb-5 text-white relative z-10">
+                Bienvenido
+            </h2>
+
+            <!-- Texto -->
+            <p class="sonic-text text-lg text-gray-100 mb-10 relative z-10">
+                Esta es una aplicación de gestión de tareas inspirada en el estilo visual de Sonic Generations.
+            </p>
+
+            <!-- Botones -->
+            <ul class="space-y-5 relative z-10">
+
+                <li>
+                    <a th:href="@{/tareas}"
+                       class="sonic-btn bg-sonicYellow text-black py-4 px-6 text-xl">
+
+                        Ver Tareas
+
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/categorias}"
+                       class="sonic-btn bg-white text-black py-4 px-6 text-xl hover:bg-sonicLight hover:text-white">
+
+                        Ver Categorías
+
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </main>
+
+    <div th:replace="layouts/plantilla :: footer"></div>
+
+</body>
+</html>

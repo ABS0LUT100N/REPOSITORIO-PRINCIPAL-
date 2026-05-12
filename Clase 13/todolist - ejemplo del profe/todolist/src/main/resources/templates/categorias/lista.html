@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Categorías</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sonicBlue: '#005BFF',
+                        sonicDark: '#000000',
+                        sonicLight: '#00A2FF',
+                        sonicYellow: '#FFE600',
+                        sonicRed: '#FF1E1E'
+                    },
+
+                    fontFamily: {
+                        sonic: ['Arial Black', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body{
+            overflow-x:hidden;
+            position:relative;
+        }
+
+        /* Fondo Sonic Generations */
+        body::before{
+            content:"";
+            position:fixed;
+            inset:0;
+            background:
+                radial-gradient(circle at top left, #005BFF 0 28%, transparent 29%),
+                radial-gradient(circle at bottom right, #FF1E1E 0 30%, transparent 31%),
+                linear-gradient(90deg,#005BFF 0 50%, #FF1E1E 50% 100%);
+            z-index:-4;
+        }
+
+        /* Bordes decorativos */
+        body::after{
+            content:"";
+            position:fixed;
+            inset:0;
+            background:
+                repeating-linear-gradient(
+                    -45deg,
+                    #FFE600 0 10px,
+                    #000 10px 20px
+                );
+            clip-path: polygon(
+                0 0,
+                12% 0,
+                8% 8%,
+                20% 0,
+                100% 0,
+                100% 10%,
+                92% 0,
+                100% 100%,
+                85% 100%,
+                100% 85%,
+                0 100%,
+                0 85%,
+                10% 100%,
+                0 10%
+            );
+            opacity:.95;
+            z-index:-3;
+        }
+
+        /* Overlay */
+        .overlay{
+            position:fixed;
+            inset:0;
+            background:
+                radial-gradient(circle at center, transparent 0%, rgba(0,0,0,.25) 60%, rgba(0,0,0,.65) 100%);
+            z-index:-2;
+        }
+
+        /* Título */
+        .sonic-title{
+            font-family:'Arial Black', sans-serif;
+            text-transform:uppercase;
+            text-shadow:
+                4px 4px 0 black,
+                0 0 12px rgba(255,255,255,.3);
+            letter-spacing:2px;
+        }
+
+        /* Panel principal */
+        .generations-panel{
+            position:relative;
+            background:#000;
+            border:6px solid white;
+            border-radius:2rem;
+            overflow:hidden;
+            box-shadow:
+                0 0 0 6px #FFE600,
+                0 0 40px rgba(0,0,0,.85);
+        }
+
+        .generations-panel::before{
+            content:"";
+            position:absolute;
+            top:-45px;
+            left:-45px;
+            width:150px;
+            height:150px;
+            background:#005BFF;
+            border-radius:999px;
+            border:10px solid #FFE600;
+        }
+
+        .generations-panel::after{
+            content:"";
+            position:absolute;
+            bottom:-60px;
+            right:-60px;
+            width:180px;
+            height:180px;
+            background:#FF1E1E;
+            border-radius:999px;
+            border:12px solid #FFE600;
+        }
+
+        /* Zig zag */
+        .zigzag{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:18px;
+            background:
+                linear-gradient(-45deg, transparent 75%, #FFE600 75%) 0 0/18px 18px,
+                linear-gradient(45deg, transparent 75%, #FFE600 75%) 0 0/18px 18px;
+        }
+
+        /* Botones */
+        .sonic-btn{
+            border-radius:999px;
+            font-weight:900;
+            letter-spacing:1px;
+            border:4px solid black;
+            transition:.2s;
+            box-shadow:0 7px 0 rgba(0,0,0,.4);
+        }
+
+        .sonic-btn:hover{
+            transform:translateY(3px) scale(1.03);
+            box-shadow:0 3px 0 rgba(0,0,0,.4);
+        }
+
+        /* Tabla */
+        .sonic-table th{
+            background:#FFE600;
+            color:black;
+            font-family:'Arial Black', sans-serif;
+            border-bottom:4px solid black;
+        }
+
+        .sonic-table td{
+            border-bottom:2px solid rgba(255,255,255,.12);
+        }
+
+        .sonic-row:hover{
+            background:rgba(255,255,255,.08);
+            transform:scale(1.01);
+        }
+
+        /* Error */
+        .error-box{
+            background:#FF1E1E;
+            border:4px solid white;
+            box-shadow:0 0 0 4px black;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen text-white font-sans">
+
+    <div class="overlay"></div>
+
+    <div th:replace="layouts/plantilla :: header"></div>
+
+    <main class="max-w-6xl mx-auto px-6 py-10">
+
+        <!-- Título -->
+        <h2 class="sonic-title text-5xl text-white mb-10">
+            Lista de Categorías
+        </h2>
+
+        <!-- Mensaje de error -->
+        <div th:if="${error}"
+             class="error-box px-5 py-4 rounded-2xl mb-8">
+
+            <p th:text="${error}"
+               class="font-black text-lg uppercase tracking-wide">
+            </p>
+
+        </div>
+
+        <!-- Botón -->
+        <a th:href="@{/categorias/nueva}"
+           class="sonic-btn inline-block bg-sonicYellow text-black px-8 py-4 text-xl mb-8">
+
+            + NUEVA CATEGORÍA
+
+        </a>
+
+        <!-- Tabla -->
+        <div class="generations-panel p-6">
+
+            <div class="zigzag"></div>
+
+            <div class="overflow-x-auto relative z-10">
+
+                <table border="1"
+                       class="sonic-table w-full border-collapse text-left overflow-hidden rounded-2xl">
+
+                    <thead>
+
+                        <tr>
+                            <th class="px-6 py-5 text-lg">ID</th>
+                            <th class="px-6 py-5 text-lg">NOMBRE</th>
+                            <th class="px-6 py-5 text-lg text-center">ACCIONES</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr th:each="c : ${categorias}"
+                            class="sonic-row transition duration-300">
+
+                            <td th:text="${c.id}"
+                                class="px-6 py-5 font-black text-yellow-300 text-lg">
+                            </td>
+
+                            <td th:text="${c.nombre}"
+                                class="px-6 py-5 text-lg font-semibold tracking-wide">
+                            </td>
+
+                            <td class="px-6 py-5">
+
+                                <div class="flex gap-4 justify-center">
+
+                                    <!-- Editar -->
+                                    <a th:href="@{'/categorias/editar/' + ${c.id}}"
+                                       class="sonic-btn bg-sonicBlue hover:bg-blue-400 text-white px-5 py-2">
+
+                                        EDITAR
+
+                                    </a>
+
+                                    <!-- Eliminar -->
+                                    <a th:href="@{'/categorias/eliminar/' + ${c.id}}"
+                                       onclick="return confirm('¿Seguro que deseas eliminar esta categoría?')"
+                                       class="sonic-btn bg-sonicRed hover:bg-red-400 text-white px-5 py-2">
+
+                                        ELIMINAR
+
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <div th:replace="layouts/plantilla :: footer"></div>
+
+</body>
+</html>
